@@ -7,50 +7,19 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+      ../../modules/base.nix
+      ../../modules/i3.nix
+      ../../modules/networking.nix
+
       ../../modules/home-manager.nix
+      ../../modules/users/daniele.nix
+
       ./hardware-configuration.nix
     ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Set your time zone.
-  time.timeZone = "Europe/Rome";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      lightdm.enable = true;
-      defaultSession = "none+i3";
-    };
-    desktopManager = {
-      xfce.enable = true;
-    };
-    windowManager.i3.enable = true;
-  };
-
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -67,23 +36,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.daniele = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    initialPassword = "changeme";
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      firefox
-      tree
-    ];
-  };
-  users.extraGroups.vboxusers.members = [ "daniele" ];
 
-  programs.zsh.enable = true;
-
-  home-manager.users.daniele.imports = [
-    ../../home/users/daniele.nix
-  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
