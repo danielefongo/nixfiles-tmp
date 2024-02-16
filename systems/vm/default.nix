@@ -7,6 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+      ../../modules/home-manager.nix
       ./hardware-configuration.nix
     ];
 
@@ -35,11 +36,10 @@
   # };
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
+  # services.xserver.enable true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -66,8 +66,12 @@
       tree
     ];
   };
-  
+
   programs.zsh.enable = true;
+
+  home-manager.users.daniele.imports = [
+    ../../home/users/daniele.nix
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
