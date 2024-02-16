@@ -77,6 +77,7 @@
       tree
     ];
   };
+  users.extraGroups.vboxusers.members = [ "daniele" ];
 
   programs.zsh.enable = true;
 
